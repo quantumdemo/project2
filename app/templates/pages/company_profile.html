@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Company Profile | PrimeCore Engineering Services{% endblock %}
+
+{% block content %}
+<section style="background-color: var(--bg-dark); color: var(--text-inverse); padding: 5rem 0; border-bottom: 1px solid var(--border-dark);">
+  <div class="container">
+    <div class="tech-tag tech-tag-dark">CAPABILITY OVERVIEW</div>
+    <h1 class="section-title section-title-dark" style="font-size: 2.75rem;">Company Profile & Technical Capabilities</h1>
+    <p class="section-subtitle section-subtitle-dark" style="font-size: 1.15rem;">
+      Download our official technical company profile PDF or review our core capabilities, project approach, and industrial scope.
+    </p>
+  </div>
+</section>
+
+<section style="padding: 5rem 0; background-color: var(--bg-light);">
+  <div class="container">
+    <!-- PDF Download Card -->
+    <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); border-left: 4px solid var(--accent-amber); padding: 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem; border-radius: var(--radius-sm);" class="reveal-on-scroll">
+      <div>
+        <span style="font-family: var(--font-family-mono); font-size: 0.8rem; font-weight: 700; color: var(--accent-amber); text-transform: uppercase;">OFFICIAL DOCUMENTATION</span>
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem; margin-bottom: 0.5rem;">PrimeCore Company Profile (PDF)</h2>
+        <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 600px;">
+          Includes detailed breakdown of engineering capabilities, project execution methodology, target industries, and demo contact details.
+        </p>
+      </div>
+
+      <div>
+        <a href="{{ url_for('main.download_company_profile') }}" class="btn btn-primary" style="padding: 1rem 2rem;">
+          &#128196; Download Company Profile (PDF)
+        </a>
+      </div>
+    </div>
+
+    <!-- Summary Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+      <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); padding: 2.5rem; border-radius: var(--radius-sm);">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem;">Disciplines Covered</h3>
+        <ul style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.95rem; color: var(--text-muted);">
+          <li><strong>01. Engineering Services:</strong> FEED, structural modeling, piping systems, and HAZOP assessments.</li>
+          <li><strong>02. Industrial Maintenance:</strong> Preventive scheduling, vibration analysis, and turnaround overhauls.</li>
+          <li><strong>03. Technical Procurement:</strong> OEM sourcing, material tracing (ISO/API), and FAT inspection.</li>
+          <li><strong>04. Installation & Commissioning:</strong> Heavy rigging, laser alignment, and SAT protocols.</li>
+          <li><strong>05. Project Support:</strong> Resident engineering supervision, HSE auditing, and QA/QC management.</li>
+        </ul>
+      </div>
+
+      <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); padding: 2.5rem; border-radius: var(--radius-sm);">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem;">Corporate Information</h3>
+        <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+          <div>
+            <strong style="color: var(--text-main); display: block;">Company Name:</strong>
+            PrimeCore Engineering & Industrial Services (Fictional Demo)
+          </div>
+          <div>
+            <strong style="color: var(--text-main); display: block;">Operating Sectors:</strong>
+            Manufacturing, Construction, Energy & Utilities, Infrastructure
+          </div>
+          <div>
+            <strong style="color: var(--text-main); display: block;">Primary Contact Phone:</strong>
+            {{ demo_phone }}
+          </div>
+          <div>
+            <strong style="color: var(--text-main); display: block;">Primary Contact Email:</strong>
+            {{ demo_email }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

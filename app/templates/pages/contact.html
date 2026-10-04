@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Contact & Project Enquiry | PrimeCore Engineering{% endblock %}
+
+{% block content %}
+<section style="background-color: var(--bg-dark); color: var(--text-inverse); padding: 5rem 0; border-bottom: 1px solid var(--border-dark);">
+  <div class="container">
+    <div class="tech-tag tech-tag-dark">COMMERCIAL ENQUIRIES</div>
+    <h1 class="section-title section-title-dark" style="font-size: 2.75rem;">Discuss Your Engineering Project</h1>
+    <p class="section-subtitle section-subtitle-dark" style="font-size: 1.15rem;">
+      Submit detailed technical requirements, request project feasibility consultations, or inquire about maintenance contracts.
+    </p>
+  </div>
+</section>
+
+<section style="padding: 5rem 0; background-color: var(--bg-light);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;">
+      <!-- Contact Form Box -->
+      <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); border-top: 4px solid var(--accent-amber); padding: 3rem; border-radius: var(--radius-sm);">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('contact.index') }}" novalidate>
+          {{ form.hidden_tag() }}
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+            <div class="form-group">
+              <label for="full_name" class="form-label">Full Name *</label>
+              {{ form.full_name(class="form-control", id="full_name", placeholder="e.g. Samuel Adebayo") }}
+              {% if form.full_name.errors %}
+                {% for err in form.full_name.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="company_name" class="form-label">Company / Organisation</label>
+              {{ form.company_name(class="form-control", id="company_name", placeholder="e.g. Prime Energy Ltd") }}
+              {% if form.company_name.errors %}
+                {% for err in form.company_name.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address *</label>
+              {{ form.email(class="form-control", id="email", type="email", placeholder="name@company.com") }}
+              {% if form.email.errors %}
+                {% for err in form.email.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number *</label>
+              {{ form.phone(class="form-control", id="phone", placeholder="+234 ...") }}
+              {% if form.phone.errors %}
+                {% for err in form.phone.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;">
+            <div class="form-group">
+              <label for="service_required" class="form-label">Service Discipline *</label>
+              {{ form.service_required(class="form-control", id="service_required") }}
+              {% if form.service_required.errors %}
+                {% for err in form.service_required.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="project_type" class="form-label">Project Scope *</label>
+              {{ form.project_type(class="form-control", id="project_type") }}
+              {% if form.project_type.errors %}
+                {% for err in form.project_type.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="estimated_timeline" class="form-label">Timeline *</label>
+              {{ form.estimated_timeline(class="form-control", id="estimated_timeline") }}
+              {% if form.estimated_timeline.errors %}
+                {% for err in form.estimated_timeline.errors %}
+                  <div class="form-error">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="project_description" class="form-label">Project Description & Technical Brief *</label>
+            {{ form.project_description(class="form-control", id="project_description", rows="5", placeholder="Please provide details regarding operational requirements, site location, machinery specs, or target completion dates...") }}
+            {% if form.project_description.errors %}
+              {% for err in form.project_description.errors %}
+                <div class="form-error">{{ err }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="preferred_contact_method" class="form-label">Preferred Contact Method</label>
+            {{ form.preferred_contact_method(class="form-control", id="preferred_contact_method") }}
+          </div>
+
+          <div>
+            {{ form.submit(class="btn btn-primary", style="width: 100%; padding: 1rem; font-size: 0.95rem;") }}
+          </div>
+        </form>
+      </div>
+
+      <!-- Contact Sidebar -->
+      <div>
+        <div style="background-color: var(--bg-dark); color: var(--text-inverse); padding: 2rem; border-radius: var(--radius-sm); margin-bottom: 2rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 1.25rem;">Direct Contact Details</h3>
+
+          <div style="margin-bottom: 1.25rem;">
+            <strong style="display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-amber); letter-spacing: 0.05em;">LOCATION ADDRESS</strong>
+            <p style="font-size: 0.9rem; color: var(--text-inverse-muted); margin-top: 0.2rem;">{{ demo_address }}</p>
+          </div>
+
+          <div style="margin-bottom: 1.25rem;">
+            <strong style="display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-amber); letter-spacing: 0.05em;">TELEPHONE / DIRECT</strong>
+            <p style="font-size: 0.9rem; color: var(--text-inverse-muted); margin-top: 0.2rem;">{{ demo_phone }}</p>
+          </div>
+
+          <div>
+            <strong style="display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-amber); letter-spacing: 0.05em;">ELECTRONIC MAIL</strong>
+            <p style="font-size: 0.9rem; color: var(--text-inverse-muted); margin-top: 0.2rem;">{{ demo_email }}</p>
+          </div>
+        </div>
+
+        <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); padding: 1.75rem; border-radius: var(--radius-sm);">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem;">Notice to Clients</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+            Submissions made through this form are logged in our secure demonstration environment. Technical consultations are reviewed within 24 business hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Auto-select dropdown if query param is present
+  document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    if (serviceParam) {
+      const selectEl = document.getElementById('service_required');
+      if (selectEl) {
+        selectEl.value = serviceParam;
+      }
+    }
+  });
+</script>
+{% endblock %}

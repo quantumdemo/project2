@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+
+{% block title %}PrimeCore Engineering & Industrial Services | Homepage{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
+    padding: 6rem 0 7rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.94) 0%, rgba(10, 25, 47, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    z-index: 1;
+  }
+
+  .hero-container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-support-text {
+    font-size: 1.125rem;
+    color: var(--text-inverse-muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 620px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-spec-box {
+    background-color: rgba(16, 32, 56, 0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-dark);
+    border-left: 3px solid var(--accent-amber);
+    padding: 1.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .hero-spec-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-spec-num {
+    font-family: var(--font-family-mono);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+  }
+
+  .hero-spec-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-inverse-muted);
+  }
+
+  /* Capability Intro Section */
+  .capability-section {
+    padding: 5rem 0;
+    background-color: var(--bg-light);
+  }
+
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .capability-card {
+    background-color: var(--bg-light-card);
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--text-main);
+    padding: 2rem 1.5rem;
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+  }
+
+  .capability-card:hover {
+    transform: translateY(-4px);
+    border-top-color: var(--accent-amber);
+    border-color: rgba(217, 119, 6, 0.3);
+  }
+
+  .capability-num {
+    font-family: var(--font-family-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    margin-bottom: 1rem;
+  }
+
+  .capability-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+  }
+
+  .capability-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Services Preview Section */
+  .services-section {
+    padding: 6rem 0;
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .service-card-dark {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-dark);
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all var(--transition-normal);
+  }
+
+  .service-card-dark:hover {
+    background-color: var(--bg-surface-2);
+    border-color: var(--accent-amber);
+  }
+
+  .service-card-num {
+    font-family: var(--font-family-mono);
+    font-size: 0.85rem;
+    color: var(--accent-amber);
+    margin-bottom: 1rem;
+  }
+
+  .service-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-inverse);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card-desc {
+    font-size: 0.875rem;
+    color: var(--text-inverse-muted);
+    margin-bottom: 1.75rem;
+    line-height: 1.6;
+  }
+
+  .service-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Projects Showcase Section */
+  .projects-section {
+    padding: 6rem 0;
+    background-color: var(--bg-light);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .project-card {
+    background-color: var(--bg-light-card);
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+  }
+
+  .project-img-wrapper {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .project-card:hover .project-img {
+    transform: scale(1.05);
+  }
+
+  .project-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: var(--bg-dark);
+    color: var(--accent-amber);
+    font-family: var(--font-family-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .project-card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .project-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  /* Process Timeline */
+  .process-section {
+    padding: 6rem 0;
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .process-step {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-dark);
+    padding: 1.5rem 1rem;
+    border-top: 3px solid var(--accent-amber);
+  }
+
+  .process-num {
+    font-family: var(--font-family-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .process-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-inverse);
+    margin-bottom: 0.5rem;
+  }
+
+  .process-desc {
+    font-size: 0.78rem;
+    color: var(--text-inverse-muted);
+    line-height: 1.5;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #102038 0%, #0A192F 100%);
+    color: var(--text-inverse);
+    text-align: center;
+    border-top: 1px solid var(--border-dark);
+  }
+
+  .cta-container {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1024px) {
+    .capability-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-container { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .capability-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-bg-overlay"></div>
+  <div class="container hero-container">
+    <div>
+      <div class="tech-tag tech-tag-dark">DEMO B2B CORPORATE WEBSITE</div>
+      <h1 class="hero-headline">Engineering Solutions Built for Real-World Operations.</h1>
+      <p class="hero-support-text">
+        PrimeCore provides engineering design, industrial maintenance, technical procurement, and project support for organisations operating across infrastructure and industrial environments.
+      </p>
+      <div class="hero-actions">
+        <a href="{{ url_for('contact.index') }}" class="btn btn-primary">Discuss Your Project &rarr;</a>
+        <a href="{{ url_for('services.index') }}" class="btn btn-secondary-dark">Explore Our Services</a>
+      </div>
+    </div>
+
+    <div class="hero-spec-box reveal-on-scroll">
+      <div class="tech-tag tech-tag-dark" style="margin-bottom: 1rem;">OPERATIONAL PERFORMANCE</div>
+      <div class="hero-spec-grid">
+        <div class="hero-spec-item">
+          <span class="hero-spec-num">99.8%</span>
+          <span class="hero-spec-label">Target Uptime Reliability</span>
+        </div>
+        <div class="hero-spec-item">
+          <span class="hero-spec-num">ISO</span>
+          <span class="hero-spec-label">Aligned QA Standards</span>
+        </div>
+        <div class="hero-spec-item">
+          <span class="hero-spec-num">0.0</span>
+          <span class="hero-spec-label">Target Lost Time Injury</span>
+        </div>
+        <div class="hero-spec-item">
+          <span class="hero-spec-num">24/7</span>
+          <span class="hero-spec-label">Technical Field Response</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Capability Intro Section -->
+<section class="capability-section">
+  <div class="container">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+      <div class="tech-tag">ENGINEERING WITH PURPOSE</div>
+      <h2 class="section-title">Solving Complex Operational Challenges Through Engineering Precision</h2>
+      <p class="section-subtitle">
+        From technical planning to installation and ongoing maintenance, PrimeCore helps industrial organisations maintain operational continuity through practical engineering solutions.
+      </p>
+    </div>
+
+    <div class="capability-grid">
+      <div class="capability-card reveal-on-scroll">
+        <div class="capability-num">01 / CAPABILITY</div>
+        <h3 class="capability-title">Engineering</h3>
+        <p class="capability-desc">Front-end design, structural integrity analysis, and fluid process engineering compliant with rigorous international standards.</p>
+      </div>
+
+      <div class="capability-card reveal-on-scroll">
+        <div class="capability-num">02 / CAPABILITY</div>
+        <h3 class="capability-title">Procurement</h3>
+        <p class="capability-desc">Strategic global OEM sourcing, component inspection, and technical material compliance verification.</p>
+      </div>
+
+      <div class="capability-card reveal-on-scroll">
+        <div class="capability-num">03 / CAPABILITY</div>
+        <h3 class="capability-title">Installation</h3>
+        <p class="capability-desc">Precision heavy rigging, electrical integration, and site commissioning for complex mechanical platforms.</p>
+      </div>
+
+      <div class="capability-card reveal-on-scroll">
+        <div class="capability-num">04 / CAPABILITY</div>
+        <h3 class="capability-title">Maintenance</h3>
+        <p class="capability-desc">Predictive condition monitoring, plant shutdown management, and routine overhaul routines to eliminate downtime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Preview Section -->
+<section class="services-section">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <div class="tech-tag tech-tag-dark">CORE DISCIPLINES</div>
+        <h2 class="section-title section-title-dark">Comprehensive Engineering & Industrial Capabilities</h2>
+      </div>
+      <div>
+        <a href="{{ url_for('services.index') }}" class="btn btn-secondary-dark">View All 5 Services &rarr;</a>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      {% for s in services %}
+        <div class="service-card-dark reveal-on-scroll">
+          <div>
+            <div class="service-card-num">{{ s.number }} // SERVICE</div>
+            <h3 class="service-card-title">{{ s.title }}</h3>
+            <p class="service-card-desc">{{ s.short_description }}</p>
+          </div>
+          <div>
+            <a href="{{ url_for('services.detail', slug=s.slug) }}" class="service-card-link">Explore Service Details &rarr;</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects Showcase Section -->
+<section class="projects-section">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <div class="tech-tag">DEMO PORTFOLIO SHOWCASE</div>
+        <h2 class="section-title">Selected Technical Case Studies</h2>
+        <p class="section-subtitle">Explore illustrative examples of PrimeCore engineering capabilities, technical procurement, and field installations.</p>
+      </div>
+      <div>
+        <a href="{{ url_for('projects.index') }}" class="btn btn-outline-dark">View All Demo Projects &rarr;</a>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+      {% for p in featured_projects %}
+        <div class="project-card reveal-on-scroll">
+          <div class="project-img-wrapper">
+            <img src="{{ p.main_image }}" alt="{{ p.title }}" class="project-img" loading="lazy">
+            <div class="project-badge">{{ p.number }}</div>
+          </div>
+          <div class="project-card-body">
+            <span class="project-category">{{ p.category }}</span>
+            <h3 class="project-title">{{ p.title }}</h3>
+            <p class="project-desc">{{ p.short_description }}</p>
+            <div class="project-meta">
+              <span>Location: <strong>{{ p.location }}</strong></span>
+              <a href="{{ url_for('projects.detail', slug=p.slug) }}" class="btn btn-outline-dark" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">View Case Study &rarr;</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Structured Process Timeline -->
+<section class="process-section">
+  <div class="container">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+      <div class="tech-tag tech-tag-dark">METHODOLOGY</div>
+      <h2 class="section-title section-title-dark">Our Structured Project Approach</h2>
+      <p class="section-subtitle section-subtitle-dark">A disciplined six-stage methodology ensuring predictable engineering outcomes, safety compliance, and clear client communication.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step reveal-on-scroll">
+        <div class="process-num">01</div>
+        <h3 class="process-title">Understand</h3>
+        <p class="process-desc">Site diagnostic, risk assessment, and technical scope mapping.</p>
+      </div>
+      <div class="process-step reveal-on-scroll">
+        <div class="process-num">02</div>
+        <h3 class="process-title">Plan</h3>
+        <p class="process-desc">Front-end engineering, resource scheduling, and HSE setup.</p>
+      </div>
+      <div class="process-step reveal-on-scroll">
+        <div class="process-num">03</div>
+        <h3 class="process-title">Execute</h3>
+        <p class="process-desc">Supervised field installation, overhaul, or procurement delivery.</p>
+      </div>
+      <div class="process-step reveal-on-scroll">
+        <div class="process-num">04</div>
+        <h3 class="process-title">Test</h3>
+        <p class="process-desc">Rigorous NDT, loop testing, pressure holds, and calibration.</p>
+      </div>
+      <div class="process-step reveal-on-scroll">
+        <div class="process-num">05</div>
+        <h3 class="process-title">Handover</h3>
+        <p class="process-desc">Site Acceptance Testing (SAT), sign-off, and documentation.</p>
+      </div>
+      <div class="process-step reveal-on-scroll">
+        <div class="process-num">06</div>
+        <h3 class="process-title">Support</h3>
+        <p class="process-desc">Ongoing preventive maintenance and technical advisory support.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final Conversion Call to Action -->
+<section class="cta-section">
+  <div class="container cta-container">
+    <div class="tech-tag tech-tag-dark">INITIATE AN ENQUIRY</div>
+    <h2 class="section-title section-title-dark" style="margin-bottom: 1.25rem;">Have an Engineering Project in Mind?</h2>
+    <p class="section-subtitle section-subtitle-dark" style="margin-bottom: 2.5rem; margin-left: auto; margin-right: auto;">
+      Tell us what you are planning and explore how the right technical approach can support your operational objectives.
+    </p>
+    <a href="{{ url_for('contact.index') }}" class="btn btn-primary" style="padding: 1rem 2.25rem; font-size: 0.95rem;">Discuss Your Project &rarr;</a>
+  </div>
+</section>
+
+{% endblock %}

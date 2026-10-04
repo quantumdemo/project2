@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PrimeCore Engineering & Industrial Services{% endblock %} | Demo Corporate Build</title>
+  <meta name="description" content="{% block meta_description %}PrimeCore Engineering provides engineering, industrial maintenance, technical procurement, and project support for infrastructure and industrial operations.{% endblock %}">
+
+  <link rel="canonical" href="{% block canonical_url %}{{ request.url }}{% endblock %}">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ self.meta_description() }}{% endblock %}">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta property="og:site_name" content="PrimeCore Engineering & Industrial Services">
+
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- Demo Notice Banner -->
+  <div class="demo-top-bar">
+    <div class="container">
+      <strong>PORTFOLIO DEMO COMPANY:</strong> PrimeCore Engineering & Industrial Services is a fictional demo entity built for the AfixTech Web Development Portfolio.
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="{{ url_for('main.index') }}" class="brand-logo" aria-label="PrimeCore Home">
+        <div class="brand-symbol">P</div>
+        <div class="brand-title">
+          <span class="brand-name">PRIMECORE</span>
+          <span class="brand-tagline">ENGINEERING SERVICES</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="{{ url_for('main.index') }}" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('main.about') }}" class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}">About</a>
+
+        <div class="nav-item-dropdown">
+          <a href="{{ url_for('services.index') }}" class="nav-link {% if request.endpoint and 'services' in request.endpoint %}active{% endif %}">
+            Services &#9662;
+          </a>
+          <div class="dropdown-menu">
+            {% for nav_s in nav_services %}
+              <a href="{{ url_for('services.detail', slug=nav_s.slug) }}" class="dropdown-item">{{ nav_s.title }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <a href="{{ url_for('main.industries') }}" class="nav-link {% if request.endpoint == 'main.industries' %}active{% endif %}">Industries</a>
+        <a href="{{ url_for('projects.index') }}" class="nav-link {% if request.endpoint and 'projects' in request.endpoint %}active{% endif %}">Projects</a>
+        <a href="{{ url_for('main.company_profile') }}" class="nav-link {% if request.endpoint == 'main.company_profile' %}active{% endif %}">Company Profile</a>
+        <a href="{{ url_for('contact.index') }}" class="nav-link {% if request.endpoint == 'contact.index' %}active{% endif %}">Contact</a>
+      </nav>
+
+      <!-- Action Button & Mobile Toggle -->
+      <div class="nav-actions">
+        <a href="{{ url_for('contact.index') }}" class="btn btn-primary">Discuss a Project</a>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          &#9776;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+    <a href="{{ url_for('main.index') }}" class="mobile-nav-link">Home</a>
+    <a href="{{ url_for('main.about') }}" class="mobile-nav-link">About</a>
+
+    <div>
+      <a href="{{ url_for('services.index') }}" class="mobile-nav-link">Services</a>
+      <div class="mobile-nav-sublinks">
+        {% for nav_s in nav_services %}
+          <a href="{{ url_for('services.detail', slug=nav_s.slug) }}" class="mobile-nav-sublink">{{ nav_s.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <a href="{{ url_for('main.industries') }}" class="mobile-nav-link">Industries</a>
+    <a href="{{ url_for('projects.index') }}" class="mobile-nav-link">Projects</a>
+    <a href="{{ url_for('main.company_profile') }}" class="mobile-nav-link">Company Profile</a>
+    <a href="{{ url_for('contact.index') }}" class="mobile-nav-link">Contact</a>
+
+    <div style="margin-top: 1.5rem;">
+      <a href="{{ url_for('contact.index') }}" class="btn btn-primary" style="width: 100%;">Discuss Your Project</a>
+    </div>
+  </div>
+
+  <!-- Main Content Body -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Corporate Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div>
+          <a href="{{ url_for('main.index') }}" class="brand-logo" aria-label="PrimeCore Home">
+            <div class="brand-symbol">P</div>
+            <div class="brand-title">
+              <span class="brand-name">PRIMECORE</span>
+              <span class="brand-tagline">ENGINEERING SERVICES</span>
+            </div>
+          </a>
+          <p class="footer-brand-desc">
+            PrimeCore provides engineering, industrial maintenance, technical procurement, and project support for organisations operating across infrastructure and industrial environments.
+          </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('main.index') }}" class="footer-link">Home</a></li>
+            <li><a href="{{ url_for('main.about') }}" class="footer-link">About Us</a></li>
+            <li><a href="{{ url_for('services.index') }}" class="footer-link">Services</a></li>
+            <li><a href="{{ url_for('main.industries') }}" class="footer-link">Industries</a></li>
+            <li><a href="{{ url_for('projects.index') }}" class="footer-link">Projects Portfolio</a></li>
+            <li><a href="{{ url_for('main.company_profile') }}" class="footer-link">Company Profile</a></li>
+            <li><a href="{{ url_for('contact.index') }}" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Core Services -->
+        <div>
+          <h4 class="footer-heading">Capabilities</h4>
+          <ul class="footer-links">
+            {% for nav_s in nav_services %}
+              <li><a href="{{ url_for('services.detail', slug=nav_s.slug) }}" class="footer-link">{{ nav_s.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Target Industries -->
+        <div>
+          <h4 class="footer-heading">Industries</h4>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('main.industries') }}#manufacturing" class="footer-link">Manufacturing</a></li>
+            <li><a href="{{ url_for('main.industries') }}#construction" class="footer-link">Construction</a></li>
+            <li><a href="{{ url_for('main.industries') }}#energy-utilities" class="footer-link">Energy & Utilities</a></li>
+            <li><a href="{{ url_for('main.industries') }}#commercial-infrastructure" class="footer-link">Commercial Infrastructure</a></li>
+            <li><a href="{{ url_for('main.industries') }}#industrial-facilities" class="footer-link">Industrial Facilities</a></li>
+          </ul>
+        </div>
+
+        <!-- Demo Contact Info -->
+        <div>
+          <h4 class="footer-heading">Demo Contact</h4>
+          <div class="footer-contact-item">
+            <strong>Address</strong>
+            <span>{{ demo_address }}</span>
+          </div>
+          <div class="footer-contact-item">
+            <strong>Phone</strong>
+            <span>{{ demo_phone }}</span>
+          </div>
+          <div class="footer-contact-item">
+            <strong>Email</strong>
+            <span>{{ demo_email }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 PrimeCore Engineering & Industrial Services. Fictional Portfolio Build by <a href="https://afixtech.vercel.app/" target="_blank" rel="noopener" style="color: var(--accent-amber); text-decoration: underline;">AfixTech</a>.
+        </div>
+        <div>
+          <span class="footer-demo-badge">FICTIONAL DEMO COMPANY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

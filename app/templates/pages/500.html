@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}500 Internal Server Error | PrimeCore Engineering{% endblock %}
+
+{% block content %}
+<section style="background-color: var(--bg-dark); color: var(--text-inverse); padding: 7rem 0; text-align: center; border-bottom: 1px solid var(--border-dark);">
+  <div class="container" style="max-width: 650px;">
+    <div style="font-family: var(--font-family-mono); font-size: 3rem; font-weight: 800; color: var(--accent-amber); margin-bottom: 0.5rem;">500</div>
+    <h1 class="section-title section-title-dark" style="font-size: 2.25rem; margin-bottom: 1rem;">Server Execution Error</h1>
+    <p style="font-size: 1.05rem; color: var(--text-inverse-muted); line-height: 1.7; margin-bottom: 2.5rem;">
+      An unexpected operational error occurred while processing your request. Our technical logging team has been notified.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      <a href="{{ url_for('main.index') }}" class="btn btn-primary">&larr; Return to Homepage</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
