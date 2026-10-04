@@ -53,7 +53,7 @@ SERVICES_DATA = [
             "Heavy Material Handling Equipment"
         ],
         "icon": "wrench",
-        "hero_image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=1200&auto=format&fit=crop"
+        "hero_image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop"
     },
     {
         "slug": "technical-procurement",
@@ -137,7 +137,7 @@ SERVICES_DATA = [
             "Industrial Facility Commissioning Supervision"
         ],
         "icon": "shield-check",
-        "hero_image": "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=1200&auto=format&fit=crop"
+        "hero_image": "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1200&auto=format&fit=crop"
     }
 ]
 
@@ -152,7 +152,7 @@ PROJECTS_DATA = [
         "location": "Lagos, Nigeria",
         "status": "Completed Demo Project",
         "featured": True,
-        "main_image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=1200&auto=format&fit=crop",
+        "main_image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop",
         "gallery_images": [
             "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=800&auto=format&fit=crop",
@@ -223,7 +223,7 @@ PROJECTS_DATA = [
         "featured": True,
         "main_image": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200&auto=format&fit=crop",
         "gallery_images": [
-            "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
         ],
         "short_description": "Precision heavy rigging, structural base positioning, alignment, and full commissioning of a high-capacity industrial processing unit.",
@@ -297,7 +297,7 @@ INDUSTRIES_DATA = [
             "Factory power factor correction and energy distribution"
         ],
         "relevant_service_slugs": ["industrial-maintenance", "engineering-services", "installation-commissioning"],
-        "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=800&auto=format&fit=crop"
+        "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop"
     },
     {
         "slug": "construction",
@@ -314,7 +314,7 @@ INDUSTRIES_DATA = [
             "Site power distribution and temporary generator utility setup"
         ],
         "relevant_service_slugs": ["engineering-services", "project-support", "technical-procurement"],
-        "image": "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=800&auto=format&fit=crop"
+        "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop"
     },
     {
         "slug": "energy-utilities",
@@ -372,9 +372,10 @@ INDUSTRIES_DATA = [
 def seed_database(db):
     from app.models import Service, Project, Industry
 
-    # Check if already seeded
-    if Service.query.first() is not None:
-        return
+    # Clean and re-seed to update any invalid image URLs
+    Service.query.delete()
+    Project.query.delete()
+    Industry.query.delete()
 
     # Seed Services
     for s_data in SERVICES_DATA:
