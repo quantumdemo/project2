@@ -75,12 +75,20 @@ main {
   overflow-x: hidden;
 }
 
-/* Typography Defaults */
+/* Typography Defaults & Word Wrapping Rules */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   color: var(--text-main);
   letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+p, li, span, div, a {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: manual;
 }
 
 p {
@@ -199,7 +207,8 @@ ul, ol {
   cursor: pointer;
   transition: all var(--transition-normal);
   border: 1px solid transparent;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
 }
 
 .btn-primary {
@@ -503,14 +512,50 @@ ul, ol {
 .case-study-layout {
   display: grid;
   grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
-  gap: 3.5rem;
+  gap: 2.5rem;
 }
 
 @media (max-width: 992px) {
   .case-study-layout {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1.5rem;
   }
+}
+
+.industry-card-layout {
+  background-color: var(--bg-light-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  scroll-margin-top: 100px;
+}
+
+.industry-card-content {
+  padding: 1.75rem;
+  min-width: 0;
+}
+
+.industry-card-sidebar {
+  background-color: var(--bg-surface);
+  padding: 1.75rem;
+  color: var(--text-inverse);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.pdf-download-card {
+  background-color: var(--bg-light-card);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--accent-amber);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  border-radius: var(--radius-sm);
 }
 
 .key-caps-grid {
