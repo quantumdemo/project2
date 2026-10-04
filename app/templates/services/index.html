@@ -3,29 +3,29 @@
 {% block title %}Our Services | PrimeCore Engineering & Industrial Services{% endblock %}
 
 {% block content %}
-<section style="background-color: var(--bg-dark); color: var(--text-inverse); padding: 5rem 0; border-bottom: 1px solid var(--border-dark);">
+<section style="background-color: var(--bg-dark); color: var(--text-inverse); padding: 4rem 0; border-bottom: 1px solid var(--border-dark);">
   <div class="container">
     <div class="tech-tag tech-tag-dark">TECHNICAL DISCIPLINES</div>
-    <h1 class="section-title section-title-dark" style="font-size: 2.75rem;">Specialised Engineering & Industrial Capabilities</h1>
-    <p class="section-subtitle section-subtitle-dark" style="font-size: 1.15rem;">
+    <h1 class="section-title section-title-dark">Specialised Engineering & Industrial Capabilities</h1>
+    <p class="section-subtitle section-subtitle-dark">
       From front-end technical design to routine plant maintenance and procurement, PrimeCore delivers end-to-end industrial engineering services.
     </p>
   </div>
 </section>
 
-<section style="padding: 5rem 0; background-color: var(--bg-light);">
+<section style="padding: 4rem 0; background-color: var(--bg-light);">
   <div class="container">
-    <div style="display: flex; flex-direction: column; gap: 3rem;">
+    <div style="display: flex; flex-direction: column; gap: 2.5rem;">
       {% for s in services %}
-        <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); border-top: 3px solid var(--accent-amber); padding: 2.5rem; display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: center;" class="reveal-on-scroll">
+        <div style="background-color: var(--bg-light-card); border: 1px solid var(--border-light); border-top: 3px solid var(--accent-amber); padding: 2rem; border-radius: var(--radius-sm);" class="capability-layout reveal-on-scroll">
           <div>
             <div style="font-family: var(--font-family-mono); font-size: 0.85rem; font-weight: 700; color: var(--accent-amber); margin-bottom: 0.5rem;">{{ s.number }} // CAPABILITY DISCIPLINE</div>
-            <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">{{ s.title }}</h2>
+            <h2 style="font-size: 1.65rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">{{ s.title }}</h2>
             <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">{{ s.overview }}</p>
 
-            <div style="margin-bottom: 1.5rem;">
-              <strong style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-main); margin-bottom: 0.5rem;">WHAT WE HANDLE:</strong>
-              <ul style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
+            <div>
+              <strong style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-main); margin-bottom: 0.75rem;">WHAT WE HANDLE:</strong>
+              <ul class="what-we-handle-grid">
                 {% for handle in s.what_we_handle[:4] %}
                   <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                     <span style="color: var(--accent-amber);">&#10003;</span> {{ handle }}
@@ -35,10 +35,10 @@
             </div>
           </div>
 
-          <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; background-color: var(--bg-light); padding: 2rem; border: 1px solid var(--border-light); border-radius: var(--radius-sm);">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; background-color: var(--bg-light); padding: 1.5rem; border: 1px solid var(--border-light); border-radius: var(--radius-sm); width: 100%;">
             <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">DISCIPLINE ACTIONS</div>
-            <a href="{{ url_for('services.detail', slug=s.slug) }}" class="btn btn-outline-dark" style="width: 100%; margin-bottom: 0.75rem;">View Full Details &rarr;</a>
-            <a href="{{ url_for('contact.index') }}?service={{ s.slug }}" class="btn btn-primary" style="width: 100%;">Request Consultation</a>
+            <a href="{{ url_for('services.detail', slug=s.slug) }}" class="btn btn-outline-dark" style="margin-bottom: 0.75rem;">View Full Details &rarr;</a>
+            <a href="{{ url_for('contact.index') }}?service={{ s.slug }}" class="btn btn-primary">Request Consultation</a>
           </div>
         </div>
       {% endfor %}

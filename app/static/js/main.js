@@ -1,19 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile Nav Toggle
+  // Mobile Nav Toggle & Body Scroll Locking
   const navToggle = document.getElementById('mobileNavToggle');
   const navDrawer = document.getElementById('mobileNavDrawer');
+  const body = document.body;
+
+  function closeMobileNav() {
+    if (navDrawer && navToggle) {
+      navDrawer.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.innerHTML = '&#9776;';
+      body.classList.remove('menu-open');
+    }
+  }
+
+  function openMobileNav() {
+    if (navDrawer && navToggle) {
+      navDrawer.classList.add('is-open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.innerHTML = '&#10005;';
+      body.classList.add('menu-open');
+    }
+  }
 
   if (navToggle && navDrawer) {
-    navToggle.addEventListener('click', () => {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = navDrawer.classList.contains('is-open');
       if (isOpen) {
-        navDrawer.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.innerHTML = '&#9776;'; // Hamburger icon
+        closeMobileNav();
       } else {
-        navDrawer.classList.add('is-open');
-        navToggle.setAttribute('aria-expanded', 'true');
-        navToggle.innerHTML = '&#10005;'; // Close X icon
+        openMobileNav();
+      }
+    });
+
+    // Close when clicking any nav link inside drawer
+    const drawerLinks = navDrawer.querySelectorAll('a');
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileNav();
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navDrawer.classList.contains('is-open')) {
+        closeMobileNav();
       }
     });
   }
@@ -39,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
-    // Fallback if IntersectionObserver is not supported
     revealElements.forEach(el => el.classList.add('is-visible'));
   }
 });
